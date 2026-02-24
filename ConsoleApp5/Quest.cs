@@ -54,15 +54,15 @@ namespace QuestProgressTracker
             var objective = GetObjective(nameObjective);
             objective.CurrentAmount = currentAmount;
 
-            if (objective.CurrentAmount == objective.RequiredAmount)
+            if (currentAmount > objective.RequiredAmount)
             {
-                IsCompleted = true;
+                objective.CurrentAmount = objective.RequiredAmount;
             }
-            if (objective.CurrentAmount < objective.RequiredAmount)
+            else
             {
-                IsCompleted = false;    
+                objective.CurrentAmount = currentAmount;
             }
-
+            IsCompleted = objective.CurrentAmount == objective.RequiredAmount;
         }
 
     }

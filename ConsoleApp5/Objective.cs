@@ -4,17 +4,8 @@
     public class Objective
     {
         public int RequiredAmount { get; set; }
-        public int CurrentAmount
-        {
-            get { return CurrentAmount; }
-            set
-            {
-                if (value > RequiredAmount)
-                {
-                    CurrentAmount = RequiredAmount;
-                }
-            }
-        }
+        public int CurrentAmount { get; set; }
+       
 
         //public int CurrentAmount { get; set; }
         public string Name { get; set; }
