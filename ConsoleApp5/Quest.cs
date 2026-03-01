@@ -1,4 +1,5 @@
 ﻿using QuestProgressTracker;
+using System.Diagnostics.Metrics;
 
 
 namespace QuestProgressTracker
@@ -7,12 +8,13 @@ namespace QuestProgressTracker
 {
     public class Quest
     {
-        private string v;
-        public List <Objective> Objectives = new List <Objective> ();
+        private string QuestName;
+        public List<Objective> Objectives = new List<Objective>();
+        public Objective TurnedIn;
 
-        public Quest(string v)
+        public Quest(string QuestName)
         {
-            this.v = v;
+            this.QuestName = QuestName;
         }
 
         public bool IsCompleted { get; set; }
@@ -62,7 +64,27 @@ namespace QuestProgressTracker
             {
                 objective.CurrentAmount = currentAmount;
             }
-            IsCompleted = objective.CurrentAmount == objective.RequiredAmount;
+          
+        }
+        public void TurnIn(string ObjectiveName)
+        {
+            var ObjectiveTurnedIn = GetObjective(ObjectiveName);
+            
+            if (ObjectiveTurnedIn == null)
+            {
+                return;
+            }
+
+            if (ObjectiveTurnedIn.CurrentAmount < ObjectiveTurnedIn.RequiredAmount || ObjectiveTurnedIn.CurrentAmount > ObjectiveTurnedIn.RequiredAmount)
+            {
+                Console.WriteLine("no");
+                IsCompleted = false;    
+                return;
+            }
+
+            TurnedIn = ObjectiveTurnedIn;
+            IsCompleted = true; 
+
         }
 
     }
