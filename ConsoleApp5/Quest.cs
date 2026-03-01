@@ -77,7 +77,7 @@ namespace QuestProgressTracker
 
             if (ObjectiveTurnedIn.CurrentAmount < ObjectiveTurnedIn.RequiredAmount || ObjectiveTurnedIn.CurrentAmount > ObjectiveTurnedIn.RequiredAmount)
             {
-                Console.WriteLine("no");
+                
                 IsCompleted = false;    
                 return;
             }
