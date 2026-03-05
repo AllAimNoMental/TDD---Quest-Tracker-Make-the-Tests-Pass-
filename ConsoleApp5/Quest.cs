@@ -54,38 +54,35 @@ namespace QuestProgressTracker
         public void ProgressObjective(string nameObjective, int currentAmount)
         {
             var objective = GetObjective(nameObjective);
-            objective.CurrentAmount = currentAmount;
+            
 
             if (currentAmount > objective.RequiredAmount)
             {
-                objective.CurrentAmount = objective.RequiredAmount;
+                throw new InvalidOperationException("You overpass the require amount");
             }
-            else
-            {
-                objective.CurrentAmount = currentAmount;
-            }
-          
+            
+           objective.CurrentAmount = currentAmount;
+
         }
         public void TurnIn(string ObjectiveName)
         {
             var ObjectiveTurnedIn = GetObjective(ObjectiveName);
             
-            if (ObjectiveTurnedIn == null)
+
+            if (ObjectiveTurnedIn.CurrentAmount < ObjectiveTurnedIn.RequiredAmount)
             {
+
+                IsCompleted = false;
                 return;
             }
-
-            if (ObjectiveTurnedIn.CurrentAmount < ObjectiveTurnedIn.RequiredAmount || ObjectiveTurnedIn.CurrentAmount > ObjectiveTurnedIn.RequiredAmount)
-            {
-                
-                IsCompleted = false;    
-                return;
-            }
-
             TurnedIn = ObjectiveTurnedIn;
-            IsCompleted = true; 
+            IsCompleted = true;
+        }
+
+
+           
 
         }
 
     }
-}
+
